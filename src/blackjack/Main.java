@@ -66,3 +66,11 @@ public class Main {
         } while (startNewGame);
     }
 }
+
+/*
+Dealer: [Z] fjslf, ????
+Player 1: [X] fjsdljfs, fjslfjsl
+Player 2: [Y] fjlsfj, guslfjs
+
+Player 1's turn:
+*/
