@@ -1,6 +1,5 @@
 package blackjack;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -12,12 +11,12 @@ public class Main {
     private static LinkedHashMap<String, Integer> playerScores = new LinkedHashMap<>();
     private static ArrayList<Card> deck = new ArrayList<>();
 
-    private static Card dealCard(boolean faceUp) {
-        // Deal a card, and remove it form the deck
-        Card dealtCard;
-
-        return dealtCard;
-    }
+//    private static Card dealCard(boolean faceUp) {
+//        // Deal a card, and remove it form the deck
+//        Card dealtCard;
+//
+//        return dealtCard;
+//    }
 
     private static void checkBlackjacks() {
         // Check if each player has a blackjack and determine what happens in each scenario
