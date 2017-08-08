@@ -1,5 +1,6 @@
 package blackjack;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -7,7 +8,7 @@ public class Main {
 
     private static boolean startNewGame = false;
     private static LinkedHashMap<String, ArrayList<Card>> playerHands = new LinkedHashMap<>();
-    private static LinkedHashMap<String, Integer[]> playerHandValues = new LinkedHashMap<>();
+    private static LinkedHashMap<String, ArrayList<Integer>> playerHandValues = new LinkedHashMap<>();
     private static LinkedHashMap<String, Integer> playerScores = new LinkedHashMap<>();
     private static ArrayList<Card> deck = new ArrayList<>();
 
