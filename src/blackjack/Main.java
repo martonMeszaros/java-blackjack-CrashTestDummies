@@ -1,7 +1,9 @@
 package blackjack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Main {
 
@@ -27,12 +29,26 @@ public class Main {
         // Set player information
         // Create deck
 
+        Map<String, Integer> cardValues = new HashMap<>();
+        cardValues.put("Two",2);
+        cardValues.put("Three",3);
+        cardValues.put("Four",4);
+        cardValues.put("Five",5);
+        cardValues.put("Six",6);
+        cardValues.put("Seven",7);
+        cardValues.put("Eight",8);
+        cardValues.put("Nine",9);
+        cardValues.put("Ten",10);
+        cardValues.put("Jumbo",10);
+        cardValues.put("Queen",10);
+        cardValues.put("King",10);
+
         for(int i = 0; i < 4; i++) {
             for(String suit: new String[]{"Clubs", "Diamonds", "Heards", "Spades"}) {
-                for(Integer number: new Integer[][]{2, 3, 4, 5, 6, 7, 8, 9, 10}) {
-                    deck.add(new Card(suit, number.toString(), number, false));
+                for (Map.Entry<String, Integer> entry : cardValues.entrySet()) {
+                    deck.add(new Card(suit, entry.getKey(), entry.getValue(), false));
                 }
-                deck.add(new Card((suit, "")))
+                deck.add(new Card(suit, "Ace", 1, true, 10));
             }
         }
     }
