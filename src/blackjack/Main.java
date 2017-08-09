@@ -2,6 +2,7 @@ package blackjack;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Main {
 
@@ -11,12 +12,12 @@ public class Main {
     private static LinkedHashMap<String, Integer> playerScores = new LinkedHashMap<>();
     private static ArrayList<Card> deck = new ArrayList<>();
 
-//    private static Card dealCard(boolean faceUp) {
+    private static Card dealCard(boolean faceUp) {
 //        // Deal a card, and remove it form the deck
 //        Card dealtCard;
 //
 //        return dealtCard;
-//    }
+    }
 
     private static void checkBlackjacks() {
         // Check if each player has a blackjack and determine what happens in each scenario
@@ -38,7 +39,13 @@ public class Main {
     }
 
     private static void dealerActions() {
-        // Do the dealer actions
+
+        playerHands.get("Dealer").get(0).setFaceUp(true);
+
+        while (playerHandValues.get("Dealer") < 17) {
+            playerHands.get("Dealer").add(dealCard(true));
+        }
+
     }
 
     private static void updateScores() {
