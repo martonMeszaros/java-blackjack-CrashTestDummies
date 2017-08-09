@@ -2,6 +2,8 @@ package blackjack;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Random;
 
 public class Main {
 
@@ -11,12 +13,16 @@ public class Main {
     private static LinkedHashMap<String, Integer> playerScores = new LinkedHashMap<>();
     private static ArrayList<Card> deck = new ArrayList<>();
 
-//    private static Card dealCard(boolean faceUp) {
-//        // Deal a card, and remove it form the deck
-//        Card dealtCard;
-//
-//        return dealtCard;
-//    }
+    private static Card dealCard(boolean faceUp) {
+        Random randomGenerator = new Random();
+        int index = randomGenerator.nextInt(deck.size());
+        Card dealtCard = deck.get(index);
+
+        dealtCard.setFaceUp(faceUp);
+        deck.remove(index);
+
+        return dealtCard;
+    }
 
     private static void checkBlackjacks() {
         // Check if each player has a blackjack and determine what happens in each scenario
