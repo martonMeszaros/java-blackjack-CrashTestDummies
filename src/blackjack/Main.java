@@ -26,6 +26,15 @@ public class Main {
         // Ask number of players
         // Set player information
         // Create deck
+
+        for(int i = 0; i < 4; i++) {
+            for(String suit: new String[]{"Clubs", "Diamonds", "Heards", "Spades"}) {
+                for(Integer number: new Integer[][]{2, 3, 4, 5, 6, 7, 8, 9, 10}) {
+                    deck.add(new Card(suit, number.toString(), number, false));
+                }
+                deck.add(new Card((suit, "")))
+            }
+        }
     }
 
     private static void initRound() {
