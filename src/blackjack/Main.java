@@ -29,8 +29,8 @@ public class Main {
         return dealtCard;
     }
 
-    private static void checkBlackjacks() {
-        // Check if each player has a blackjack and determine what happens in each scenario
+    private static boolean checkBlackjacks(String playerName) {
+        return playerHandValues.get(playerName).contains(21);
     }
 
     private static void initGame() {
@@ -86,7 +86,6 @@ public class Main {
 
     public static void main(String[] args) {
         int numberOfRounds = 5;
-
         do {
             initGame();
             for(int i = 0; i < numberOfRounds; i++) {
