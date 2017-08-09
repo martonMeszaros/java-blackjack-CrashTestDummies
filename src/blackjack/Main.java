@@ -14,7 +14,6 @@ public class Main {
     private static ArrayList<Card> deck = new ArrayList<>();
 
     private static Card dealCard(boolean faceUp) {
-        // Deal a card, and remove it form the deck
         Random randomGenerator = new Random();
         int index = randomGenerator.nextInt(deck.size());
         Card dealtCard = deck.get(index);
