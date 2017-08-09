@@ -2,7 +2,6 @@ package blackjack;
 
 import java.util.*;
 
-
 public class Main {
 
     private static boolean startNewGame = false;
@@ -122,7 +121,13 @@ public class Main {
     }
 
     private static void dealerActions() {
-        // Do the dealer actions
+
+        playerHands.get("Dealer").get(0).setFaceUp(true);
+
+        while (playerHandValues.get("Dealer") < 17) {
+            playerHands.get("Dealer").add(dealCard(true));
+        }
+
     }
 
     private static void updateScores() {
