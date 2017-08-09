@@ -7,7 +7,7 @@ public class Main {
 
     private static boolean startNewGame = false;
     private static LinkedHashMap<String, ArrayList<Card>> playerHands = new LinkedHashMap<>();
-    private static LinkedHashMap<String, ArrayList<Integer>> playerHandValues = new LinkedHashMap<>();
+    private static LinkedHashMap<String, Integer> playerHandValues = new LinkedHashMap<>();
     private static LinkedHashMap<String, Integer> playerScores = new LinkedHashMap<>();
     private static ArrayList<Card> deck = new ArrayList<>();
 
@@ -22,8 +22,26 @@ public class Main {
         return dealtCard;
     }
 
+    private static int updateHandValue(String playerName) {
+        ArrayList<Card> playerHand = playerHands.get(playerName);
+        int playerHandValue = 0;
+        for (Card card : playerHand) {
+            if (card.isAce()) {
+                if (playerHandValue + card.getValue2() < 22) {
+                    playerHandValue += card.getValue2();
+                } else {
+                    playerHandValue += card.getValue1();
+                }
+            } else {
+                playerHandValue += card.getValue1();
+            }
+        }
+
+        return playerHandValue;
+    }
+
     private static boolean checkBlackjacks(String playerName) {
-        return playerHandValues.get(playerName).contains(21);
+        return playerHandValues.get(playerName) == 21;
     }
 
     private static void initGame() {
@@ -40,16 +58,11 @@ public class Main {
 
         // Set player information
 
-        playerHands.clear();
-        playerHandValues.clear();
         playerScores.clear();
+
         for (int i=0; i < numberOfPlayers; i++) {
-            playerHands.put("Player "+(i+1), new ArrayList<Card>());
-            playerHandValues.put("Player "+(i+1), new ArrayList<Integer>());
             playerScores.put("Player "+(i+1), 0);
         }
-        playerHands.put("Dealer", new ArrayList<Card>());
-        playerHandValues.put("Dealer", new ArrayList<Integer>());
 
         // Create deck
 
@@ -63,23 +76,45 @@ public class Main {
         cardValues.put("Eight",8);
         cardValues.put("Nine",9);
         cardValues.put("Ten",10);
-        cardValues.put("Jumbo",10);
+        cardValues.put("Jack",10);
         cardValues.put("Queen",10);
         cardValues.put("King",10);
 
         for(int i = 0; i < 4; i++) {
-            for(String suit: new String[]{"Clubs", "Diamonds", "Heards", "Spades"}) {
+            for(String suit: new String[]{"Clubs", "Diamonds", "Hearts", "Spades"}) {
                 for (Map.Entry<String, Integer> entry : cardValues.entrySet()) {
                     deck.add(new Card(suit, entry.getKey(), entry.getValue(), false));
                 }
-                deck.add(new Card(suit, "Ace", 1, true, 10));
+                deck.add(new Card(suit, "Ace", 1, true, 11));
             }
         }
     }
 
     private static void initRound() {
         // Deal cards to players
-        checkBlackjacks();
+
+        playerHands.clear();
+        playerHandValues.clear();
+
+        for (int i=0; i < playerScores.size(); i++) {
+            playerHands.put("Player " + (i + 1), new ArrayList<Card>());
+            playerHandValues.put("Player " + (i + 1), new Integer(0));
+        }
+        playerHands.put("Dealer", new ArrayList<Card>());
+        playerHandValues.put("Dealer", new Integer(0));
+
+        for (Map.Entry<String, ArrayList<Card>> playerHand : playerHands.entrySet()) {
+            String playerName = playerHand.getKey();
+            if (playerName == "Dealer") {
+                playerHand.getValue().add(dealCard(false));
+            } else {
+                playerHand.getValue().add(dealCard(true));
+            }
+            playerHand.getValue().add(dealCard(true));
+            playerHandValues.put(playerName, updateHandValue(playerName));
+        }
+
+
     }
 
     private static void playerActions() {
@@ -105,9 +140,13 @@ public class Main {
             initGame();
             for(int i = 0; i < numberOfRounds; i++) {
                 initRound();
-                playerActions();
-                dealerActions();
-                updateScores();
+                if(!checkBlackjacks("Dealer")){
+                    playerActions();
+                    dealerActions();
+                    updateScores();
+                } else {
+                    // TODO: handle dealer blackjack
+                }
             }
             showScores();
         } while (startNewGame);
