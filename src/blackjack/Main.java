@@ -1,13 +1,6 @@
 package blackjack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-
-import java.util.Map;
-
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public class Main {
@@ -35,7 +28,29 @@ public class Main {
 
     private static void initGame() {
         // Ask number of players
+
+        Scanner userInput = new Scanner(System.in);
+        System.out.println("How many players? (1-4): ");
+        int numberOfPlayers = userInput.nextInt();
+        if (numberOfPlayers < 1) {
+            numberOfPlayers = 1;
+        } else if (numberOfPlayers > 4) {
+            numberOfPlayers = 4;
+        }
+
         // Set player information
+
+        playerHands.clear();
+        playerHandValues.clear();
+        playerScores.clear();
+        for (int i=0; i < numberOfPlayers; i++) {
+            playerHands.put("Player "+(i+1), new ArrayList<Card>());
+            playerHandValues.put("Player "+(i+1), new ArrayList<Integer>());
+            playerScores.put("Player "+(i+1), 0);
+        }
+        playerHands.put("Dealer", new ArrayList<Card>());
+        playerHandValues.put("Dealer", new ArrayList<Integer>());
+
         // Create deck
 
         Map<String, Integer> cardValues = new HashMap<>();
