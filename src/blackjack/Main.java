@@ -12,7 +12,7 @@ public class Main {
 
     private static Card dealCard(boolean faceUp) {
         Random randomGenerator = new Random();
-        int index = randomGenerator.nextInt(deck.size()-1);
+        int index = randomGenerator.nextInt(deck.size());
         Card dealtCard = deck.get(index);
 
         dealtCard.setFaceUp(faceUp);
@@ -139,9 +139,11 @@ public class Main {
 
     private static void updateScores() {
         for (Map.Entry<String, Integer> entry: playerHandValues.entrySet()) {
-            if (((entry.getValue() < 22) && (playerHandValues.get("Dealer")>21)) ||
-                    ((entry.getValue() < 22) && (playerHandValues.get(entry.getKey())>playerHandValues.get("Dealer")))) {
-                playerScores.put(entry.getKey(), playerScores.get(entry.getKey())+1);
+            if (
+                    (entry.getValue() < 22 && playerHandValues.get("Dealer") > 21) || 
+                    (entry.getValue() < 22 && playerHandValues.get(entry.getKey()) > playerHandValues.get("Dealer"))
+            ) {
+                playerScores.put(entry.getKey(), playerScores.get(entry.getKey() + 1));
             }
         }
     }
