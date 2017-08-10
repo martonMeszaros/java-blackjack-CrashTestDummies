@@ -126,18 +126,17 @@ public class Main {
 
         while (playerHandValues.get("Dealer") < 17) {
             playerHands.get("Dealer").add(dealCard(true));
-            updateHandValue("Dealer");
+            playerHandValues.put("Dealer", updateHandValue("Dealer"));
+            //updateHandValue("Dealer");
         }
 
     }
 
     private static void updateScores() {
-        // Update player scores
-        if(!(playerHandValues.get("Dealer")==21)){
-            for (Map.Entry<String, Integer> entry: playerHandValues.entrySet()) {
-                if (entry.getValue() > playerHandValues.get("Dealer")){
-                    playerScores.put(entry.getKey(), playerScores.get(entry.getKey())+1);
-                }
+        for (Map.Entry<String, Integer> entry: playerHandValues.entrySet()) {
+            if (((entry.getValue() < 22) && (playerHandValues.get("Dealer")>21)) ||
+                    ((entry.getValue() < 22) && (playerHandValues.get(entry.getKey())>playerHandValues.get("Dealer")))) {
+                playerScores.put(entry.getKey(), playerScores.get(entry.getKey())+1);
             }
         }
     }
