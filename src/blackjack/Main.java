@@ -123,7 +123,27 @@ public class Main {
     }
 
     private static void playerActions() {
-        // Allow each player to take action
+        for (Map.Entry<String, Integer> entry: playerHandValues.entrySet()) {
+            boolean playerStays = false;
+            if (!(entry.getKey() == "Dealer")) {
+                while (playerHandValues.get(entry.getKey()) < 21 && !playerStays) {
+
+                    displayState();
+                    System.out.println(entry.getKey() + "'s turn, current hand value:" + playerHandValues.get(entry.getKey()));
+                    System.out.println("Enter (1) to hit, (2) to stay");
+                    Scanner scanner = new Scanner(System.in);
+                    String playerAction = scanner.next();
+
+                    if(playerAction.equals("1")){
+                        dealCard(entry.getKey(), true);
+                    } else if (playerAction.equals("2")) {
+                        playerStays = true;
+                    } else {
+                        System.out.println("Invalid input!");
+                    }
+                }
+            }
+        }
     }
 
     private static void dealerActions() {
