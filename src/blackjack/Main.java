@@ -127,7 +127,6 @@ public class Main {
         while (playerHandValues.get("Dealer") < 17) {
             playerHands.get("Dealer").add(dealCard(true));
             playerHandValues.put("Dealer", updateHandValue("Dealer"));
-            System.out.println(playerHandValues.get("Dealer"));
         }
 
     }
@@ -148,9 +147,9 @@ public class Main {
                 cardNames.add(card.toString());
             }
             if (playerHandValues.get(entry.getKey())>21) {
-                System.out.println(entry.getKey() + " ("+"Value: " + "\u001B[31m" + playerHandValues.get(entry.getKey())+ "\u001B[0m" +")");
+                System.out.println(entry.getKey() + " (Value: \u001B[31m" + playerHandValues.get(entry.getKey()) + "\u001B[0m)");
             } else {
-            System.out.println(entry.getKey() + " ("+"Value: " + playerHandValues.get(entry.getKey())+")");
+            System.out.println(entry.getKey() + " (Value: " + playerHandValues.get(entry.getKey()) + ")");
             }
             System.out.println("Cards: " + String.join(", ", cardNames)+"\n");
             cardNames.clear();
