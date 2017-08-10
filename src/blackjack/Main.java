@@ -134,6 +134,9 @@ public class Main {
         for (Map.Entry<String, Integer> entry: playerHandValues.entrySet()) {
             boolean playerStays = false;
             if (!(entry.getKey() == "Dealer")) {
+                if (playerHandValues.get(entry.getKey()) == 21) {
+                    System.out.println("Blackjack!");
+                }
                 while (playerHandValues.get(entry.getKey()) < 21 && !playerStays) {
 
                     displayState();
@@ -224,7 +227,7 @@ public class Main {
                     displayState();
                     updateScores();
                 } else {
-                    // TODO: handle dealer blackjack
+                    System.out.println("The dealer had a blackjack!");
                 }
             }
             showScores();
