@@ -126,6 +126,8 @@ public class Main {
 
         while (playerHandValues.get("Dealer") < 17) {
             playerHands.get("Dealer").add(dealCard(true));
+            playerHandValues.put("Dealer", updateHandValue("Dealer"));
+            System.out.println(playerHandValues.get("Dealer"));
         }
 
     }
@@ -139,15 +141,30 @@ public class Main {
         // Ask for new game
     }
 
+    private static void displayState() {
+        // Displays the current state of the game.
+        List<String> cardNames = new ArrayList<>();
+        for (Map.Entry<String, ArrayList<Card>> entry: playerHands.entrySet()) {
+            for (Card card: playerHands.get(entry.getKey())) {
+                cardNames.add(card.toString());
+            }
+            System.out.println(entry.getKey() + " ("+"Value: " + playerHandValues.get(entry.getKey())+")");
+            System.out.println("Cards: " + String.join(", ", cardNames)+"\n");
+            cardNames.clear();
+        }
+    }
+
     public static void main(String[] args) {
         int numberOfRounds = 5;
         do {
             initGame();
             for(int i = 0; i < numberOfRounds; i++) {
                 initRound();
+                System.out.println(deck.size());
                 if(!checkBlackjacks("Dealer")){
                     playerActions();
                     dealerActions();
+                    displayState();
                     updateScores();
                 } else {
                     // TODO: handle dealer blackjack
