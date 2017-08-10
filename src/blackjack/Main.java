@@ -22,18 +22,24 @@ public class Main {
     }
 
     private static int updateHandValue(String playerName) {
+        int numberOfHighAces = 0;
         ArrayList<Card> playerHand = playerHands.get(playerName);
         int playerHandValue = 0;
         for (Card card : playerHand) {
             if (card.isAce()) {
                 if (playerHandValue + card.getValue2() < 22) {
                     playerHandValue += card.getValue2();
+                    numberOfHighAces++;
                 } else {
                     playerHandValue += card.getValue1();
                 }
             } else {
                 playerHandValue += card.getValue1();
             }
+        }
+        while (playerHandValue > 21 && numberOfHighAces > 0) {
+            playerHandValue -= 10; // Change an ace 11 to an ace 1
+            numberOfHighAces--;
         }
 
         return playerHandValue;
