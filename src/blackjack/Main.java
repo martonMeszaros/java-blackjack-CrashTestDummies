@@ -170,14 +170,18 @@ public class Main {
                     (entry.getValue() < 22 && playerHandValues.get("Dealer") > 21) || 
                     (entry.getValue() < 22 && playerHandValues.get(entry.getKey()) > playerHandValues.get("Dealer"))
             ) {
-                playerScores.put(entry.getKey(), playerScores.get(entry.getKey() + 1));
+                playerScores.put(entry.getKey(), playerScores.get(entry.getKey()) + 1);
             }
         }
     }
 
     private static void showScores() {
-        // Show the final player scores
-        // Ask for new game
+        for (Map.Entry<String, Integer> entry: playerScores.entrySet()) {
+            System.out.println(playerScores.toString());
+            if(!entry.getKey().equals("Dealer")){
+                System.out.println(entry.getKey()+": "+entry.getValue()+" points");
+            }
+        }
     }
 
     private static void displayState() {
