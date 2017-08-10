@@ -52,6 +52,6 @@ class Card {
         if(!faceUp) {
             return "???????";
         }
-        return name + " of " + suit;
+        return suit + " " + name;
     }
 }

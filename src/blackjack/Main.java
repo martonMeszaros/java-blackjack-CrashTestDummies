@@ -72,25 +72,25 @@ public class Main {
         // Create deck
 
         Map<String, Integer> cardValues = new HashMap<>();
-        cardValues.put("Two",2);
-        cardValues.put("Three",3);
-        cardValues.put("Four",4);
-        cardValues.put("Five",5);
-        cardValues.put("Six",6);
-        cardValues.put("Seven",7);
-        cardValues.put("Eight",8);
-        cardValues.put("Nine",9);
-        cardValues.put("Ten",10);
-        cardValues.put("Jack",10);
-        cardValues.put("Queen",10);
-        cardValues.put("King",10);
+        cardValues.put("2",2);
+        cardValues.put("3",3);
+        cardValues.put("4",4);
+        cardValues.put("5",5);
+        cardValues.put("6",6);
+        cardValues.put("7",7);
+        cardValues.put("8",8);
+        cardValues.put("9",9);
+        cardValues.put("10",10);
+        cardValues.put("J",10);
+        cardValues.put("Q",10);
+        cardValues.put("K",10);
 
         for(int i = 0; i < 4; i++) {
-            for(String suit: new String[]{"Clubs", "Diamonds", "Hearts", "Spades"}) {
+            for(String suit: new String[]{"\u2663", "\u2666", "\u2764", "\u2660"}) {
                 for (Map.Entry<String, Integer> entry : cardValues.entrySet()) {
                     deck.add(new Card(suit, entry.getKey(), entry.getValue(), false));
                 }
-                deck.add(new Card(suit, "Ace", 1, true, 11));
+                deck.add(new Card(suit, "A", 1, true, 11));
             }
         }
     }
