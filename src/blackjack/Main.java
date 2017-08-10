@@ -55,7 +55,15 @@ public class Main {
 
         Scanner userInput = new Scanner(System.in);
         System.out.println("How many players? (1-4): ");
-        int numberOfPlayers = userInput.nextInt();
+        int numberOfPlayers = 0;
+        while (!(numberOfPlayers > 0 && numberOfPlayers < 5)) {
+            try {
+                numberOfPlayers = userInput.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter an accepted input (1-4)!");
+                userInput = new Scanner(System.in);
+            }
+        }
         if (numberOfPlayers < 1) {
             numberOfPlayers = 1;
         } else if (numberOfPlayers > 4) {
