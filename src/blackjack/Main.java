@@ -176,6 +176,21 @@ public class Main {
         }
     }
 
+    private static void displayCurrentPlayerState(String playerName) {
+        List<String> cardNames = new ArrayList<>();
+        for (Card card: playerHands.get(playerName)) {
+            cardNames.add(card.toString());
+        }
+        if (playerHandValues.get(playerName)>21 && !playerName.equals("Dealer")) {
+            System.out.println(playerName + " (Value: \u001B[31m" + playerHandValues.get(playerName) + "\u001B[0m)");
+        } else if(!playerName.equals("Dealer")){
+            System.out.println(playerName + " (Value: " + playerHandValues.get(playerName) + ")");
+        } else {
+            System.out.println(playerName);
+        }
+        System.out.println("Cards: " + String.join(", ", cardNames));
+    }
+
     public static void main(String[] args) {
         int numberOfRounds = 5;
         do {
