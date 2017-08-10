@@ -10,21 +10,22 @@ public class Main {
     private static LinkedHashMap<String, Integer> playerScores = new LinkedHashMap<>();
     private static ArrayList<Card> deck = new ArrayList<>();
 
-    private static Card dealCard(boolean faceUp) {
+    private static void dealCard(String playerName, boolean faceUp) {
         Random randomGenerator = new Random();
         int index = randomGenerator.nextInt(deck.size());
         Card dealtCard = deck.get(index);
 
         dealtCard.setFaceUp(faceUp);
+        playerHands.get(playerName).add(dealtCard);
+        updateHandValue(playerName);
         deck.remove(index);
 
-        return dealtCard;
     }
 
-    private static int updateHandValue(String playerName) {
+    private static void updateHandValue(String playerName) {
         int numberOfHighAces = 0;
-        ArrayList<Card> playerHand = playerHands.get(playerName);
         int playerHandValue = 0;
+        ArrayList<Card> playerHand = playerHands.get(playerName);
         for (Card card : playerHand) {
             if (card.isAce()) {
                 if (playerHandValue + card.getValue2() < 22) {
@@ -42,7 +43,7 @@ public class Main {
             numberOfHighAces--;
         }
 
-        return playerHandValue;
+        playerHandValues.put(playerName, playerHandValue);
     }
 
     private static boolean checkBlackjacks(String playerName) {
@@ -111,12 +112,11 @@ public class Main {
         for (Map.Entry<String, ArrayList<Card>> playerHand : playerHands.entrySet()) {
             String playerName = playerHand.getKey();
             if (playerName == "Dealer") {
-                playerHand.getValue().add(dealCard(false));
+                dealCard(playerName, false);
             } else {
-                playerHand.getValue().add(dealCard(true));
+                dealCard(playerName, true);
             }
-            playerHand.getValue().add(dealCard(true));
-            playerHandValues.put(playerName, updateHandValue(playerName));
+            dealCard(playerName, true);
         }
 
 
@@ -131,8 +131,7 @@ public class Main {
         playerHands.get("Dealer").get(0).setFaceUp(true);
 
         while (playerHandValues.get("Dealer") < 17) {
-            playerHands.get("Dealer").add(dealCard(true));
-            playerHandValues.put("Dealer", updateHandValue("Dealer"));
+            dealCard("Dealer", true);
         }
 
     }
@@ -167,8 +166,8 @@ public class Main {
         do {
             initGame();
             for(int i = 0; i < numberOfRounds; i++) {
+                System.out.println("\nRound " + (i + 1) + "!\n");
                 initRound();
-                System.out.println(deck.size());
                 if(!checkBlackjacks("Dealer")){
                     playerActions();
                     dealerActions();
