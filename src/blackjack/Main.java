@@ -139,14 +139,18 @@ public class Main {
                 }
                 while (playerHandValues.get(entry.getKey()) < 21 && !playerStays) {
 
-                    displayState();
-                    System.out.println(entry.getKey() + "'s turn, current hand value:" + playerHandValues.get(entry.getKey()));
+                    displayCurrentPlayerState(entry.getKey());
+                    displayCurrentPlayerState("Dealer");
+                    System.out.println(entry.getKey() + "'s turn, current hand value: " + playerHandValues.get(entry.getKey()));
                     System.out.println("Enter (1) to hit, (2) to stay");
                     Scanner scanner = new Scanner(System.in);
                     String playerAction = scanner.next();
 
                     if(playerAction.equals("1")){
                         dealCard(entry.getKey(), true);
+                        if (playerHandValues.get(entry.getKey()) > 21) {
+                            System.out.println("Your busted!");
+                        }
                     } else if (playerAction.equals("2")) {
                         playerStays = true;
                     } else {
@@ -231,11 +235,12 @@ public class Main {
         } else {
             System.out.println(playerName);
         }
-        System.out.println("Cards: " + String.join(", ", cardNames));
+        System.out.println("Cards: " + String.join(", ", cardNames) + "\n");
     }
 
     public static void main(String[] args) {
         int numberOfRounds = 5;
+        Scanner nextRoundScanner = new Scanner(System.in);
         do {
             initGame();
             for(int i = 0; i < numberOfRounds; i++) {
@@ -249,16 +254,10 @@ public class Main {
                 } else {
                     System.out.println("The dealer had a blackjack!");
                 }
+                System.out.println("Next round! (press enter to continue)");
+                nextRoundScanner.nextLine();
             }
             showScores();
         } while (startNewGame);
     }
 }
-
-/*
-Dealer: [Z] fjslf, ????
-Player 1: [X] fjsdljfs, fjslfjsl
-Player 2: [Y] fjlsfj, guslfjs
-
-Player 1's turn:
-*/
