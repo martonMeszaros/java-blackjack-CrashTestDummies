@@ -176,11 +176,27 @@ public class Main {
     }
 
     private static void showScores() {
+        System.out.println("\nFinal scores:");
         for (Map.Entry<String, Integer> entry: playerScores.entrySet()) {
-            System.out.println(playerScores.toString());
             if(!entry.getKey().equals("Dealer")){
                 System.out.println(entry.getKey()+": "+entry.getValue()+" points");
             }
+        }
+        Scanner input = new Scanner(System.in);
+        int newRoundInput = -1;
+        System.out.println("\nDo you want to play a new game?\n(0) - No, (1) - Yes");
+        while (!(newRoundInput == 0 || newRoundInput == 1)) {
+            try {
+                newRoundInput = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter an accepted input (0-1)!");
+                input = new Scanner(System.in);
+            }
+        }
+        if (newRoundInput == 0) {
+            startNewGame = false;
+        } else if (newRoundInput == 1) {
+            startNewGame = true;
         }
     }
 
