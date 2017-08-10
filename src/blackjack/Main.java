@@ -137,7 +137,14 @@ public class Main {
     }
 
     private static void updateScores() {
-        // Update player scores
+        for (Map.Entry<String, Integer> entry: playerHandValues.entrySet()) {
+            if (
+                    (entry.getValue() < 22 && playerHandValues.get("Dealer") > 21) || 
+                    (entry.getValue() < 22 && playerHandValues.get(entry.getKey()) > playerHandValues.get("Dealer"))
+            ) {
+                playerScores.put(entry.getKey(), playerScores.get(entry.getKey() + 1));
+            }
+        }
     }
 
     private static void showScores() {
