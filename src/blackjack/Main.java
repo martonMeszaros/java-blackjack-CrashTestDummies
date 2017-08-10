@@ -142,13 +142,16 @@ public class Main {
     }
 
     private static void displayState() {
-        // Displays the current state of the game.
         List<String> cardNames = new ArrayList<>();
         for (Map.Entry<String, ArrayList<Card>> entry: playerHands.entrySet()) {
             for (Card card: playerHands.get(entry.getKey())) {
                 cardNames.add(card.toString());
             }
+            if (playerHandValues.get(entry.getKey())>21) {
+                System.out.println(entry.getKey() + " ("+"Value: " + "\u001B[31m" + playerHandValues.get(entry.getKey())+ "\u001B[0m" +")");
+            } else {
             System.out.println(entry.getKey() + " ("+"Value: " + playerHandValues.get(entry.getKey())+")");
+            }
             System.out.println("Cards: " + String.join(", ", cardNames)+"\n");
             cardNames.clear();
         }
