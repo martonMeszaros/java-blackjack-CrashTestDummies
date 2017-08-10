@@ -173,14 +173,34 @@ public class Main {
                     (entry.getValue() < 22 && playerHandValues.get("Dealer") > 21) || 
                     (entry.getValue() < 22 && playerHandValues.get(entry.getKey()) > playerHandValues.get("Dealer"))
             ) {
-                playerScores.put(entry.getKey(), playerScores.get(entry.getKey() + 1));
+                playerScores.put(entry.getKey(), playerScores.get(entry.getKey()) + 1);
             }
         }
     }
 
     private static void showScores() {
-        // Show the final player scores
-        // Ask for new game
+        System.out.println("\nFinal scores:");
+        for (Map.Entry<String, Integer> entry: playerScores.entrySet()) {
+            if(!entry.getKey().equals("Dealer")){
+                System.out.println(entry.getKey()+": "+entry.getValue()+" points");
+            }
+        }
+        Scanner input = new Scanner(System.in);
+        int newRoundInput = -1;
+        System.out.println("\nDo you want to play a new game?\n(0) - No, (1) - Yes");
+        while (!(newRoundInput == 0 || newRoundInput == 1)) {
+            try {
+                newRoundInput = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter an accepted input (0-1)!");
+                input = new Scanner(System.in);
+            }
+        }
+        if (newRoundInput == 0) {
+            startNewGame = false;
+        } else if (newRoundInput == 1) {
+            startNewGame = true;
+        }
     }
 
     private static void displayState() {
